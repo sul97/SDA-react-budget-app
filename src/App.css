@@ -36,3 +36,20 @@
     transform: rotate(360deg);
   }
 }
+.col{
+  text-align: left;
+  background-color: #e3dcdc;
+  border: #000;
+  float: left;
+  width: 33%;
+  display: flex;
+  justify-content: center;
+  height: 30vh;
+  
+}
+.transFor{
+  text-align: center;
+  font-size: 15px;
+  color: #0b0a0a;
+  margin: 20px 0;
+}

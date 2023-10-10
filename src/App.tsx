@@ -1,24 +1,18 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import IncomeForm from './components/IncomeForm';
+import ExpenseForm from './components/ExpenseForm';
+import TargetForSaving from './components/TargetForSaving';
+import TransferForSavingForm from './components/TransferForSavingForm';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    
+    <div className="row">
+    <div className ="col"><IncomeForm /></div>
+    <div className ="col"><ExpenseForm /></div>
+    <div className ="col"><TargetForSaving/></div>
+    <div className ="transFor"><TransferForSavingForm/></div>
     </div>
   );
 }
