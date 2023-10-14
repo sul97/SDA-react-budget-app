@@ -1,9 +1,6 @@
 import React, { FormEvent, useState, ChangeEvent } from 'react';
 import { Expense } from './types';
 
-
-
-
 const ExpenseForm = () => {
   const [expense, setExpense] = useState<Expense>({
     esource: '',

@@ -15,7 +15,6 @@ export interface Expense {
 export interface TransferSavingForm {
   getSavingAmount:(amount: number) => void
  
-
 }
 
 export interface TransferSavingFormProps {

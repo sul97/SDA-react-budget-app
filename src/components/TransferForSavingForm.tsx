@@ -3,8 +3,6 @@ import { TransferSavingForm } from './types';
 
 const TransferForSavingForm = (props:TransferSavingForm) => {
   const [transferAmount, setTransferAmount] = useState(0);
-  
- 
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     setTransferAmount (Number(event.target.value));

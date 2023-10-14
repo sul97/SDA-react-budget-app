@@ -1,7 +1,6 @@
 import { FormEvent, useState, ChangeEvent } from 'react';
 import { Income } from './types';
 
-
 const IncomeForm= () => {
   const [income, setIncome] = useState<Income>({
     source: '',
