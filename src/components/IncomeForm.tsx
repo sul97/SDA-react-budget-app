@@ -1,37 +1,100 @@
-import React from 'react';
- 
-const IncomeForm = () =>{
-    return(
-     <div>
-     <form>
+import { FormEvent, useState, ChangeEvent } from 'react';
+import { Income } from './types';
+
+
+const IncomeForm= () => {
+  const [income, setIncome] = useState<Income>({
+    source: '',
+    amount: 0,
+    date: '',
+  });
+
+  const [incomeList, setIncomeList] = useState<Income[]>([]); 
+
+  const handleDeleteIncome = (index: number) => {
+    const updatedIncomes = [...incomeList];
+    updatedIncomes.splice(index, 1);
+    setIncomeList(updatedIncomes);
+  };
+
+  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+
+    setIncome((prevIncome) => ({
+      ...prevIncome,
+      [name]: name === 'amount' ? parseFloat(value) : value,
+    }));
+  };
+
+  const handleIncomeSubmit = (event: FormEvent) => {
+    event.preventDefault();
+
+    if (!income.source || income.amount <= 0 || !income.date) {
+      alert('Please fill all fields ');
+      return;
+    }
+
+    setIncomeList((prevIncomes) => [...prevIncomes, income]);
+    setIncome({
+      source: '',
+      amount: 0,
+      date: '',
+    });
+  };
+
+  return (
+    <div>
+      <form onSubmit={handleIncomeSubmit}>
         <div>
-        <label htmlFor=""> Income source</label>
+          <label htmlFor="source">Income Source</label>
+          </div>
+          <div>
+          <input
+            type="text"
+            name="source"
+            id="source"
+            value={income.source}
+            onChange={handleInputChange}
+          />
         </div>
         <div>
-        <input type="text" name="source" id="source"/>
+          <label htmlFor="amount">Amount of Income</label>
+          </div>
+          <div>
+          <input
+            type="number"
+            name="amount"
+            id="amount"
+            value={income.amount}
+            onChange={handleInputChange}
+          />
         </div>
         <div>
-        <label htmlFor=""> Amount of income</label>
+          <label htmlFor="date">Date of Income</label>
+          </div>
+          <div>
+          <input
+            type="date"
+            name="date"
+            id="date"
+            value={income.date}
+            onChange={handleInputChange}
+          />
         </div>
         <div>
-        <input type="number" name="amount" id="amount"/>
+          <button type="submit" className="button">Add Income</button>
         </div>
-        <div>
-        <label htmlFor=""> Date of income</label>
-        </div>
-        <div>
-        <input type="date" name="date" id="date"/>
-        </div>
-        <div>
-        <button>add income</button>
-        </div>
-     </form>
-     <ul>
-        <li>Salary :</li>
-        <li>Salary :</li>
-     </ul>
-     </div>
-    );
-};
+        </form>
+      <ul>
+        {incomeList.map((income, index) => (
+          <li key={index}>
+            {income.source}: ${income.amount} on {income.date}
+            <button onClick={() => handleDeleteIncome(index)}>Delete</button>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}; 
 
 export default IncomeForm;
