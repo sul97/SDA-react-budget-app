@@ -1,32 +1,19 @@
 import React ,{useState}from 'react';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import './App.css';
-import IncomeForm from './components/IncomeForm';
-import ExpenseForm from './components/ExpenseForm';
-import TargetForSaving from './components/TargetForSaving';
-import TransferForSavingForm from './components/TransferForSavingForm';
-//import { Income, Expense } from './components/types';
+import Budget from './Budget';
 
-const App=()=> {
-  const [savingAmount, setSavingAmount]=useState(0);
-  const getSavingAmount =(amount:number)=>{
-    setSavingAmount(amount);
-  }
-
-  const resetSavingAmount = () => {
-    setSavingAmount(0);
-  };
+function App() {
 
   return (
-    
-    <div className="row">
-      
-    <div className ="col"><IncomeForm  /></div>
-    <div className ="col"><ExpenseForm /></div>
-    <div className ="col"><TargetForSaving savingAmount={savingAmount} onReset={resetSavingAmount} /> </div>
-    <div className ="transFor"><TransferForSavingForm getSavingAmount={getSavingAmount}/></div>
-    
-    </div>
-  );
+    <div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Budget/>} />
+      </Routes>
+    </BrowserRouter>
+  </div>
+);
 }
 
 export default App;

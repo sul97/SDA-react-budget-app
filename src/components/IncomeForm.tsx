@@ -1,14 +1,14 @@
 import { FormEvent, useState, ChangeEvent } from 'react';
-import { Income } from './types';
+import { Income_Expense } from './types';
 
-const IncomeForm= () => {
-  const [income, setIncome] = useState<Income>({
+const IncomeForm= (props: { getIncomeAmount: (amount: number) => void }) => {
+  const [income, setIncome] = useState<Income_Expense>({
     source: '',
     amount: 0,
     date: '',
   });
 
-  const [incomeList, setIncomeList] = useState<Income[]>([]); 
+  const [incomeList, setIncomeList] = useState<Income_Expense[]>([]); 
 
   const handleDeleteIncome = (index: number) => {
     const updatedIncomes = [...incomeList];
@@ -34,6 +34,7 @@ const IncomeForm= () => {
     }
 
     setIncomeList((prevIncomes) => [...prevIncomes, income]);
+    props.getIncomeAmount(income.amount);
     setIncome({
       source: '',
       amount: 0,
@@ -86,7 +87,7 @@ const IncomeForm= () => {
         </form>
       <ul>
         {incomeList.map((income, index) => (
-          <li key={index}>
+          <li key={`${income.source}-${income.amount}-${income.date}`}>
             {income.source}: ${income.amount} on {income.date}
             <button onClick={() => handleDeleteIncome(index)}>Delete</button>
           </li>

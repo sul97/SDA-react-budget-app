@@ -1,26 +1,20 @@
 // Income type definition
-export interface Income {
+export interface Income_Expense {
   source: string;
   amount: number;
   date: string;
 }
 
-// Expense type definition
-export interface Expense {
-  esource: string;
-  eamount: number;
-  edate: string;
-}
-
 export interface TransferSavingForm {
-  getSavingAmount:(amount: number) => void
- 
+  getSavingAmount: (amount: number) => void;
+  savingAmount:number;
+  incomeAmounts: number[]; 
+  expenseAmounts: number[]; 
 }
 
 export interface TransferSavingFormProps {
   savingAmount:number;
   onReset: () => void;
-  
-
+ 
 }
 

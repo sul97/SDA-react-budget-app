@@ -1,18 +1,18 @@
 import React, { FormEvent, useState, ChangeEvent } from 'react';
-import { Expense } from './types';
+import { Income_Expense } from './types';
 
-const ExpenseForm = () => {
-  const [expense, setExpense] = useState<Expense>({
-    esource: '',
-    eamount: 0,
-    edate: '',
+const ExpenseForm = (props: { getExpenseAmount: (amount: number) => void }) => {
+  const [expense, setExpense] = useState<Income_Expense>({
+    source: '',
+    amount: 0,
+    date: '',
   });
-  const [expenses, setExpensesState] = useState<Expense[]>([]);
+  const [expenses, setExpensesList] = useState<Income_Expense[]>([]);
 
   const handleDeleteExpense = (index: number) => {
     const updatedExpense = [...expenses];
     updatedExpense.splice(index, 1);
-    setExpensesState(updatedExpense);
+    setExpensesList(updatedExpense);
   };
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -20,23 +20,24 @@ const ExpenseForm = () => {
 
     setExpense((prevExpense) => ({
       ...prevExpense,
-      [name]: name === 'eamount' ? parseFloat(value) : value,
+      [name]: name === 'amount' ? parseFloat(value) : value,
     }));
   };
 
   const handleExpenseSubmit = (event: FormEvent) => {
     event.preventDefault();
 
-    if (!expense.esource || expense.eamount <= 0 || !expense.edate) {
+    if (!expense.source || expense.amount <= 0 || !expense.date) {
       alert('Please fill all fields');
       return;
     }
 
-    setExpensesState((prevExpenses) => [...prevExpenses, expense]);
+    setExpensesList((prevExpenses) => [...prevExpenses, expense]);
+    props.getExpenseAmount(expense.amount);
     setExpense({
-      esource: '',
-      eamount: 0,
-      edate: '',
+      source: '',
+      amount: 0,
+      date: '',
     });
   };
 
@@ -45,38 +46,38 @@ const ExpenseForm = () => {
     <div>
       <form onSubmit={handleExpenseSubmit}>
         <div>
-          <label htmlFor="esource">Expense Source</label>
+          <label htmlFor="source">Expense Source</label>
           </div>
           <div>
           <input
             type="text"
-            name="esource"
-            id="esource"
-            value={expense.esource}
+            name="source"
+            id="source"
+            value={expense.source}
             onChange={handleInputChange}
           />
         </div>
         <div>
-          <label htmlFor="eamount">Amount of Expense</label>
+          <label htmlFor="amount">Amount of Expense</label>
           </div>
           <div>
           <input
             type="number"
-            name="eamount"
-            id="eamount"
-            value={expense.eamount}
+            name="amount"
+            id="amount"
+            value={expense.amount}
             onChange={handleInputChange}
           />
         </div>
         <div>
-          <label htmlFor="edate">Date of Expense</label>
+          <label htmlFor="date">Date of Expense</label>
           </div>
           <div>
           <input
              type="date"
-             name="edate"
-             id="edate"
-             value={expense.edate}
+             name="date"
+             id="date"
+             value={expense.date}
              onChange={handleInputChange}
            />
         </div>
@@ -86,8 +87,8 @@ const ExpenseForm = () => {
       </form>
       <ul>
         {expenses.map((expense, index) => (
-          <li key={index}>
-            {expense.esource}: ${expense.eamount} on {expense.edate}
+          <li key={`${expense.source}-${expense.amount}-${expense.date}`}>
+            {expense.source}: ${expense.amount} on {expense.date}
             <button onClick={() => handleDeleteExpense(index)}>Delete</button>
           </li>
         ))}
