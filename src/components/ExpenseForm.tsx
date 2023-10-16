@@ -1,13 +1,13 @@
 import React, { FormEvent, useState, ChangeEvent } from 'react';
-import { Income_Expense } from './types';
+import { IncomeExpense, ExpenseProps} from './types';
 
-const ExpenseForm = (props: { getExpenseAmount: (amount: number) => void }) => {
-  const [expense, setExpense] = useState<Income_Expense>({
+const ExpenseForm = (props: ExpenseProps) => {
+  const [expense, setExpense] = useState<IncomeExpense>({
     source: '',
     amount: 0,
     date: '',
   });
-  const [expenses, setExpensesList] = useState<Income_Expense[]>([]);
+  const [expenses, setExpensesList] = useState<IncomeExpense[]>([]);
 
   const handleDeleteExpense = (index: number) => {
     const updatedExpense = [...expenses];

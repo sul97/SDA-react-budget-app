@@ -2,22 +2,20 @@ import React ,{useState}from 'react';
 import './App.css';
 import {ExpenseForm, IncomeForm,TargetForSaving,TransferForSavingForm } from "./";
 
-const Budget=()=> {
+const Budget = () => {
   const [incomeAmounts, setIncomeAmounts] = useState<number[]>([]);
+  const [expenseAmounts, setExpenseAmounts] = useState<number[]>([]);
+  const [savingAmount, setSavingAmount]=useState(0);
+  
   const getIncomeAmount = (amount: number) => {
     setIncomeAmounts([...incomeAmounts, amount]);
   };
-
-  const [expenseAmounts, setExpenseAmounts] = useState<number[]>([]);
   const getExpenseAmount = (amount: number) => {
     setExpenseAmounts([...expenseAmounts, amount]);
   };
-
-  const [savingAmount, setSavingAmount]=useState(0);
   const getSavingAmount =(amount:number)=>{
     setSavingAmount(amount);
   }
-
   const resetSavingAmount = () => {
     setSavingAmount(0);
   };

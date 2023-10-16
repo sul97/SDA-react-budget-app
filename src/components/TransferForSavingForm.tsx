@@ -3,7 +3,7 @@ import { TransferSavingForm } from './types';
 
 const TransferForSavingForm = (props:TransferSavingForm) => {
   const [transferAmount, setTransferAmount] = useState(0);
-  const [balance, setBalance] = useState(0);
+ // const [balance, setBalance] = useState(0);
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     setTransferAmount (Number(event.target.value));
@@ -16,16 +16,13 @@ const TransferForSavingForm = (props:TransferSavingForm) => {
 
   };
 
-  useEffect(() => {
-    const totalIncome = props.incomeAmounts.reduce((total, amount) => total + amount, 0);
-    const totalExpense = props.expenseAmounts.reduce((total, amount) => total + amount, 0);
-    const newBalance = totalIncome - totalExpense - props.savingAmount;
-    setBalance(newBalance);
-  }, [props.incomeAmounts, props.expenseAmounts, props.savingAmount]);
+  const totalIncome = props.incomeAmounts.reduce((total, amount) => total + amount, 0);
+  const totalExpense = props.expenseAmounts.reduce((total, amount) => total + amount, 0);
+  const newBalance = totalIncome - totalExpense - props.savingAmount;
 
   return (
     <div>
-      <p>Current balance:${balance}</p> 
+      <p>Current balance:${newBalance}</p> 
       <form onSubmit={handleTransferSubmit}>
         <div>
           <label htmlFor="source">Transfer to saving account:</label>
